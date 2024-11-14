@@ -33,6 +33,7 @@ public class _03_ApiTestExtract {
                         .get("http://api.zippopotam.us/us/90210")
 
                         .then()
+                        .log().body()
                         .extract().path("places[0].state")  // PATH i country olan değeri EXTRACT yap
                 ;
 
@@ -51,6 +52,7 @@ public class _03_ApiTestExtract {
                         .get("https://gorest.co.in/public/v1/users")
 
                         .then()
+                        .log().body()
                         .extract().path("meta.pagination.limit")  // PATH i country olan değeri EXTRACT yap
                 ;
 
