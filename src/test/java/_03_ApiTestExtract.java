@@ -1,5 +1,9 @@
+import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
@@ -58,6 +62,60 @@ public class _03_ApiTestExtract {
 
         System.out.println("limit = " + limit);
         Assert.assertTrue(limit == 10);
+    }
+
+    @Test
+    public void extractingJasonParh4(){
+        // Soru : "https://gorest.co.in/public/v1/users"  endpoint in den dönen
+        // tüm id leri nasıl alırız.
+
+        ArrayList<Integer> idies=
+                given()
+                        .when()
+                        .get("https://gorest.co.in/public/v1/users")
+                        .then()
+                        .extract().path("data.id");
+
+        System.out.println("idies = " + idies);
+
+    }
+
+    @Test
+    public void extractingJasonPath5(){
+        // Soru : "https://gorest.co.in/public/v1/users"  endpoint in den dönen
+        // tüm name leri nasıl alırız.
+
+        ArrayList<Integer> names=
+                given()
+                        .when()
+                        .get("https://gorest.co.in/public/v1/users")
+                        .then()
+                        .extract().path("data.name");
+
+        System.out.println("names = " + names);
+
+    }
+
+    @Test
+    public void extractingJasonAllResponce(){
+        // Soru : "https://gorest.co.in/public/v1/users"  endpoint in den dönen
+        // tüm verileri nasıl alırız.
+
+        Response dataAll=
+                given()
+                        .when()
+                        .get("https://gorest.co.in/public/v1/users")
+                        .then()
+                        .extract().response();
+
+        List<Integer> idies=dataAll.path("data.id");
+        List<String> names=dataAll.path("data.name");
+        int limit=dataAll.path("meta.pagination.limit");
+
+        System.out.println("idies = " + idies);
+        System.out.println("names = " + names);
+        System.out.println("limit = " + limit);
+
     }
 
 }
